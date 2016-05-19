@@ -1,0 +1,7 @@
+[submodule "ArduinoJson"]
+    path = firmware/lib/ArduinoJson
+    url = https://github.com/bblanchon/ArduinoJson.git
+
+[submodule "NeoPixelBus"]
+    path = firmware/lib/NeoPixelBus
+    url = https://github.com/Makuna/NeoPixelBus.git
