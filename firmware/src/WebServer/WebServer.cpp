@@ -76,7 +76,7 @@ void WebServer::handleClient(){
 }
 
 void WebServer::handleRoot() {
-    server.send(200, "text/plain", "Welcome to this Valo+ controller :) \n See <link> for the documentation of the api.");
+    server.send(200, "text/plain", "Welcome to this Valo+ device :) \n See https://valoplus.de/doku for the documentation of the api.");
 }
 
 void WebServer::handleStatus() {
@@ -89,13 +89,10 @@ void WebServer::handleInit() {
     if(server.method() == HTTP_POST)
     {
         String jsonString = server.arg(0);
-        Serial.println("Recieved: " + jsonString);
 
         //Parse the recieved json data
         JsonInitInput initInput = JsonInitInput(jsonString);
         Init init = Init(initInput);
-
-
 
         StaticJsonBuffer<1000> jsonBuffer;
         JsonObject& response = jsonBuffer.createObject();
@@ -127,26 +124,18 @@ void WebServer::handleSettings() {
 
         else if (server.method() == HTTP_POST) {
             String jsonString = server.arg(0);
-            Serial.println("Recieved: " + jsonString);
 
-            Serial.println("parsing");
-            //Parse the recieved json data
             JsonSettingsInput settingsInput = JsonSettingsInput(jsonString);
-            Serial.println("input done");
             Settings settings = Settings(settingsInput);
 
             Serial.println("check/delete old settings");
             if (SPIFFS.exists("/settings.json"))
                 SPIFFS.remove("/settings.json");
 
-
-            Serial.println("save new settings");
-            //Save it
             File f = SPIFFS.open("/settings.json", "w");
             f.println(jsonString);
             f.close();
 
-            Serial.println("responde");
             server.send(200, "text/plain", "OK");
             Serial.println("done");
         }
@@ -163,28 +152,21 @@ void WebServer::handleSettingsWlan() {
 
         else if (server.method() == HTTP_POST) {
             String jsonString = server.arg(0);
-            Serial.println("Recieved: " + jsonString);
 
-            Serial.println("parsing");
-            //Parse the recieved json data
             JsonWlanSettingsInput settingsInput = JsonWlanSettingsInput(jsonString);
             Serial.println("input done");
             WlanSettings settings = WlanSettings(settingsInput);
 
-            Serial.println("check/delete old settings");
+
             if (SPIFFS.exists("/wlan.json"))
                 SPIFFS.remove("/wlan.json");
 
-
-            Serial.println("save new settings");
-            //Save it
             File f = SPIFFS.open("/wlan.json", "w");
             f.println(jsonString);
             f.close();
 
-            Serial.println("responde");
             server.send(200, "text/plain", "OK");
-            Serial.println("done");
+
         }
     }
 }
