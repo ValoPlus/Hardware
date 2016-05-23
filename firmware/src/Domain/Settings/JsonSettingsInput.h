@@ -28,17 +28,7 @@ public:
         return (*root)["controllerAlias"].asString();
     }
 
-    WlanSettings getWlanSettings() const{
-        Serial.print("wlan in: ");
 
-        String wlan = (*root)["wlan"]["ssid"].asString();
-
-        Serial.println(wlan);
-
-        //JsonWlanSettingsInput input = JsonWlanSettingsInput(wlan);
-        Serial.println("wlan c");
-        return WlanSettings((*root)["wlan"]["ssid"].asString(), (*root)["wlan"]["pass"].asString());
-    }
 
 
 };

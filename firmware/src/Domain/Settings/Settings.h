@@ -14,22 +14,17 @@
 class Settings {
 
     String controllerAlias;
-    WlanSettings wlanSettings;
+
 
 
 public:
     Settings(SettingsInput& input) {
-        Serial.println("wlan");
-        wlanSettings = input.getWlanSettings();
 
         Serial.println("alias");
         controllerAlias = input.getControllerAlias();
     }
 
 
-    const WlanSettings &getWlanSettings() const {
-        return wlanSettings;
-    }
 
     const String &getControllerAlias() const {
         return controllerAlias;

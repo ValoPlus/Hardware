@@ -26,6 +26,7 @@ private:
     bool isClientIdValid();
 
 
+    void handleSettingsWlan();
 };
 
 

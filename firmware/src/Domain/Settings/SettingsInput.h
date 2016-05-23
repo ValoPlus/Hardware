@@ -12,7 +12,7 @@ class SettingsInput {
 
 public:
     virtual String getControllerAlias() const = 0;
-    virtual WlanSettings getWlanSettings() const = 0;
+
 
 
 };

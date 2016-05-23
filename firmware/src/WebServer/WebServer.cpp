@@ -62,7 +62,7 @@ void WebServer::init() {
 
     server.on("/api/status", std::bind(&WebServer::handleStatus, this));
     server.on("/api/settings", std::bind(&WebServer::handleSettings, this));
-
+    server.on("/api/settings/wlan", std::bind(&WebServer::handleSettingsWlan, this));
 
     server.onNotFound(std::bind(&WebServer::handleNotFound, this));
 
@@ -154,9 +154,44 @@ void WebServer::handleSettings() {
 }
 
 
+void WebServer::handleSettingsWlan() {
+    if(isClientIdValid()) {
 
+        if (server.method() == HTTP_GET) {
+            respondWithJsonFile("/wlan.json");
+        }
+
+        else if (server.method() == HTTP_POST) {
+            String jsonString = server.arg(0);
+            Serial.println("Recieved: " + jsonString);
+
+            Serial.println("parsing");
+            //Parse the recieved json data
+            JsonWlanSettingsInput settingsInput = JsonWlanSettingsInput(jsonString);
+            Serial.println("input done");
+            WlanSettings settings = WlanSettings(settingsInput);
+
+            Serial.println("check/delete old settings");
+            if (SPIFFS.exists("/wlan.json"))
+                SPIFFS.remove("/wlan.json");
+
+
+            Serial.println("save new settings");
+            //Save it
+            File f = SPIFFS.open("/wlan.json", "w");
+            f.println(jsonString);
+            f.close();
+
+            Serial.println("responde");
+            server.send(200, "text/plain", "OK");
+            Serial.println("done");
+        }
+    }
+}
 void WebServer::handleNotFound(){
-    server.send(404, "text/plain", "REST endpoint " + server.uri() + " not found.");
+    String text = "REST endpoint \"" + server.uri() + "\" not found.\"";
+    Serial.println(text);
+    server.send(404, "text/plain", text+6);
 }
 
 

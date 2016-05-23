@@ -11,6 +11,7 @@
 #include "Domain/Settings/JsonSettingsInput.h"
 #include "Domain/Settings/Settings.h"
 
+#include <GDBStub.h>
 
 //const char *ssid = "";
 //const char *password = "";
@@ -59,6 +60,8 @@ void startAP(){
 
 }
 void setup() {
+
+
     Serial.begin(115200);
     Serial.println("Booting");
 
@@ -69,10 +72,10 @@ void setup() {
     //SPIFFS.remove("/settings.json");
 
 
-    if(SPIFFS.exists("/settings.json")) {
+    if(SPIFFS.exists("/wlan.json")) {
         Serial.println("Trying to read settings.json");
 
-        String wifiPath = "/settings.json";
+        String wifiPath = "/wlan.json";
         File f = SPIFFS.open(wifiPath, "r");
         Serial.println("opend");
 
@@ -82,9 +85,9 @@ void setup() {
         Serial.println("closed");
 
         if (settingsJson.length() > 5) {
-        JsonSettingsInput settingsInput = JsonSettingsInput(settingsJson);
-        Settings settings = Settings(settingsInput);
-        WlanSettings wifiConfig = settings.getWlanSettings();
+            JsonWlanSettingsInput settingsInput = JsonWlanSettingsInput(settingsJson);
+            WlanSettings wifiConfig = WlanSettings(settingsInput);
+
 
         Serial.println("starting wlan");
         WiFi.mode(WIFI_STA);
