@@ -1,39 +1,32 @@
+
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
-
 #include <FS.h>
-
-
+#include <internal/gdbstub.h>
 #include "OTA/OTAManager.h"
-
 #include "WebServer/WebServer.h"
 #include "Domain/Settings/Wlan/JsonWlanSettingsInput.h"
 #include "Domain/Settings/Wlan/WlanSettings.h"
 #include "Domain/Settings/JsonSettingsInput.h"
 #include "Domain/Settings/Settings.h"
+#include "RestHttpServer.h"
 
-#include <GDBStub.h>
 
-//const char *ssid = "";
-//const char *password = "";
-
-WebServer webServer;
+//WebServer webServer;
 OTAManager otaManager;
 
+RestHttpServer restHttpServer(80);
 
 void bootstrap(){
 
     Serial.println("Bootstraping device");
-
-    File f;
-
-
     String channelJsonPath = "/channel.json";
 
     if(SPIFFS.exists(channelJsonPath)){
         SPIFFS.remove(channelJsonPath);
     }
 
-    f = SPIFFS.open(channelJsonPath, "w");
+    File f = SPIFFS.open(channelJsonPath, "w");
     f.println("[]");
     f.flush();
     f.close();
@@ -60,7 +53,7 @@ void startAP(){
 
 }
 void setup() {
-
+    gdbstub_init();
 
     Serial.begin(115200);
     Serial.println("Booting");
@@ -89,21 +82,21 @@ void setup() {
             WlanSettings wifiConfig = WlanSettings(settingsInput);
 
 
-        Serial.println("starting wlan");
-        WiFi.mode(WIFI_STA);
-        WiFi.begin(wifiConfig.getSSID().c_str(), wifiConfig.getPassword().c_str());
+            Serial.println("starting wlan");
+            WiFi.mode(WIFI_STA);
 
-        if(WiFi.waitForConnectResult() != WL_CONNECTED) {
-            Serial.println("Connection Failed! Starting AP...");
-            startAP();
-        }
+            WiFi.begin(wifiConfig.getSSID().c_str(), wifiConfig.getPassword().c_str());
+
+
+            while(WiFi.waitForConnectResult() != WL_CONNECTED) {
+                Serial.println("Connection Failed! Starting AP...");
+                //startAP();
+            }
         }
         else
         {
             startAP();
         }
-
-
     }
     else{
         bootstrap();
@@ -121,14 +114,16 @@ void setup() {
     Serial.print("done.");
 
 
-    Serial.println("Starting WebServer... ");
-    webServer = WebServer();
-    webServer.init();
+    //Serial.println("Starting WebServer... ");
+    //webServer.init();
+    //Serial.print("done.");
+    Serial.println("Starting RestServer... ");
+    restHttpServer.begin();
     Serial.print("done.");
 
 }
 
 void loop() {
     otaManager.handle();
-    webServer.handleClient();
+   // webServer.handleClient();
 }

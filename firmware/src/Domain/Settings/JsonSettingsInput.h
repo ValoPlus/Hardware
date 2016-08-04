@@ -18,7 +18,6 @@ private:
 
 public:
     JsonSettingsInput(String json){
-
         Serial.print("JsonSettingsInput in: " + json);
         StaticJsonBuffer<2000> jsonBuffer;
         root = &jsonBuffer.parseObject(json);

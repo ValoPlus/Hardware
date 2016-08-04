@@ -13,9 +13,15 @@ private:
     String name;
 
 public:
-    Channel(String& name);
-    String getName();
-    void setName(String& name);
+    Channel(String name){
+        this->name = name;
+    }
+
+
+    String getName(){
+        return name;
+    }
+
 
 };
 
