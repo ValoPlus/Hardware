@@ -13,8 +13,15 @@ public:
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
 
-		root("name") = obj.getName();
-		root("members") = obj.getMembers();
+		root["name"] = obj.getName();
+		root["members"] = obj.getMembers();
+
+		JsonObject& links = root.createNestedObject("_links");
+
+		JsonObject& self1 = links.createNestedObject("self");
+		self1.set("href", "/groups/" + obj.getId());
+		JsonObject& self2 = links.createNestedObject("group");
+		self2.set("href", "/groups/" + obj.getId());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));

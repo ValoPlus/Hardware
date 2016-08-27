@@ -13,12 +13,19 @@ public:
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
 
-		root("name") = obj.getName();
-		root("ip") = obj.getIp();
-		root("key") = obj.getKey();
-		root("maxChannel") = obj.getMaxChannel();
-		root("isConfigured") = obj.getIsConfigured();
-		root("elements") = obj.getElements();
+		root["name"] = obj.getName();
+		root["ip"] = obj.getIp();
+		root["key"] = obj.getKey();
+		root["maxChannel"] = obj.getMaxChannel();
+		root["isConfigured"] = obj.getIsConfigured();
+		root["elements"] = obj.getElements();
+
+		JsonObject& links = root.createNestedObject("_links");
+
+		JsonObject& self1 = links.createNestedObject("self");
+		self1.set("href", "/slaves/" + obj.getId());
+		JsonObject& self2 = links.createNestedObject("slave");
+		self2.set("href", "/slaves/" + obj.getId());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));

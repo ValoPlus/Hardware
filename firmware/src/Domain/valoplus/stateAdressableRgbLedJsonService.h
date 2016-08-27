@@ -13,8 +13,15 @@ public:
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
 
-		root("active") = obj.getActive();
-		root("brightness") = obj.getBrightness();
+		root["active"] = obj.getActive();
+		root["brightness"] = obj.getBrightness();
+
+		JsonObject& links = root.createNestedObject("_links");
+
+		JsonObject& self1 = links.createNestedObject("self");
+		self1.set("href", "/stateAdressableRgbLeds/" + obj.getId());
+		JsonObject& self2 = links.createNestedObject("stateAdressableRgbLed");
+		self2.set("href", "/stateAdressableRgbLeds/" + obj.getId());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));
