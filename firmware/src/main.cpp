@@ -4,18 +4,19 @@
 #include <FS.h>
 #include <internal/gdbstub.h>
 #include "OTA/OTAManager.h"
-#include "Domain/Settings/Wlan/JsonWlanSettingsInput.h"
-#include "Domain/Settings/Wlan/WlanSettings.h"
-#include "Domain/Settings/JsonSettingsInput.h"
-#include "Domain/Settings/Settings.h"
+#include "ESP8266mDNS.h"
 #include "RestHttpServer/RestHttpServer.h"
-
+#include "Domain/valoplus/device.h"
 
 //WebServer webServer;
 OTAManager otaManager;
 
 RestHttpServer restHttpServer(80);
 void bootstrap(){
+
+
+    Device d = Device();
+
 
     Serial.println("Bootstraping device");
 
@@ -79,14 +80,14 @@ void setup() {
 
 
         if (settingsJson.length() > 5) {
-            JsonWlanSettingsInput settingsInput = JsonWlanSettingsInput(settingsJson);
-            WlanSettings wifiConfig = WlanSettings(settingsInput);
+            //JsonWlanSettingsInput settingsInput = JsonWlanSettingsInput(settingsJson);
+            //WlanSettings wifiConfig = WlanSettings(settingsInput);
 
 
             Serial.println("starting wlan");
             WiFi.mode(WIFI_STA);
 
-            WiFi.begin(wifiConfig.getSSID().c_str(), wifiConfig.getPassword().c_str());
+            //WiFi.begin(wifiConfig.getSSID().c_str(), wifiConfig.getPassword().c_str());
 
 
             while(WiFi.waitForConnectResult() != WL_CONNECTED) {
