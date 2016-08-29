@@ -9,14 +9,13 @@
 #include "Domain/Settings/Wlan/WlanSettings.h"
 #include "Domain/Settings/JsonSettingsInput.h"
 #include "Domain/Settings/Settings.h"
-#include "RestHttpServer.h"
+#include "RestHttpServer/RestHttpServer.h"
 
 
 //WebServer webServer;
 OTAManager otaManager;
 
 RestHttpServer restHttpServer(80);
-
 void bootstrap(){
 
     Serial.println("Bootstraping device");
