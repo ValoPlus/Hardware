@@ -39,11 +39,7 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_custom_target(
-    PLATFORMIO_REBUILD_PROJECT_INDEX ALL
-    COMMAND ${PLATFORMIO_CMD} -f -c clion init --ide clion
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
+
 file(GLOB_RECURSE SRC_LIST /home/torben/sync/Projekte/ValoPlus/hardware/firmware/src/*.cpp)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})

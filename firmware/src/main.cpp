@@ -4,7 +4,6 @@
 #include <FS.h>
 #include <internal/gdbstub.h>
 #include "OTA/OTAManager.h"
-#include "WebServer/WebServer.h"
 #include "Domain/Settings/Wlan/JsonWlanSettingsInput.h"
 #include "Domain/Settings/Wlan/WlanSettings.h"
 #include "Domain/Settings/JsonSettingsInput.h"
@@ -19,6 +18,7 @@ RestHttpServer restHttpServer(80);
 void bootstrap(){
 
     Serial.println("Bootstraping device");
+
     String channelJsonPath = "/channel.json";
 
     if(SPIFFS.exists(channelJsonPath)){
@@ -68,6 +68,7 @@ void setup() {
         Serial.println("Trying to read settings.json");
 
         String wifiPath = "/wlan.json";
+
         File f = SPIFFS.open(wifiPath, "r");
         Serial.println("opend");
 
@@ -75,6 +76,7 @@ void setup() {
         Serial.println("read: " + settingsJson);
         f.close();
         Serial.println("closed");
+
 
         if (settingsJson.length() > 5) {
             JsonWlanSettingsInput settingsInput = JsonWlanSettingsInput(settingsJson);
@@ -91,11 +93,13 @@ void setup() {
                 Serial.println("Connection Failed! Starting AP...");
                 //startAP();
             }
+
         }
         else
         {
             startAP();
         }
+
     }
     else{
         bootstrap();
