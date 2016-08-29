@@ -13,8 +13,8 @@ public:
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
 
-		root["name"] = obj.getName();
-		root["channelId"] = obj.getChannelId();
+		root("name", obj.getName());
+		root("channelId", obj.getChannelId());
 
 		JsonObject& links = root.createNestedObject("_links");
 
@@ -28,14 +28,14 @@ public:
         return buffer;
 	}
 
-	SingleColorLed* fromJson(String json) {
+	SingleColorLed fromJson(String json) {
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.parseObject(json);
 
-        SingleColorLed* result = new SingleColorLed();
+        SingleColorLed result = SingleColorLed();
 
-        (*result).setName(root("name"));
-        (*result).setChannelId(root("channelId"));
+        result.setName(root("name"));
+        result.setChannelId(root("channelId"));
 
         return result;
 	}

@@ -13,10 +13,10 @@ public:
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
 
-		root["name"] = obj.getName();
-		root["stateAdressableRgbLed"] = obj.getStateAdressableRgbLed();
-		root["channelId"] = obj.getChannelId();
-		root["ledCount"] = obj.getLedCount();
+		root("name", obj.getName());
+		root("stateAdressableRgbLed", obj.getStateAdressableRgbLed());
+		root("channelId", obj.getChannelId());
+		root("ledCount", obj.getLedCount());
 
 		JsonObject& links = root.createNestedObject("_links");
 
@@ -30,16 +30,16 @@ public:
         return buffer;
 	}
 
-	AdressableRgbLed* fromJson(String json) {
+	AdressableRgbLed fromJson(String json) {
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.parseObject(json);
 
-        AdressableRgbLed* result = new AdressableRgbLed();
+        AdressableRgbLed result = AdressableRgbLed();
 
-        (*result).setName(root("name"));
-        (*result).setStateAdressableRgbLed(root("stateAdressableRgbLed"));
-        (*result).setChannelId(root("channelId"));
-        (*result).setLedCount(root("ledCount"));
+        result.setName(root("name"));
+        result.setStateAdressableRgbLed(root("stateAdressableRgbLed"));
+        result.setChannelId(root("channelId"));
+        result.setLedCount(root("ledCount"));
 
         return result;
 	}

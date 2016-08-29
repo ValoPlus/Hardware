@@ -13,13 +13,13 @@ public:
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
 
-		root["name"] = obj.getName();
-		root["ip"] = obj.getIp();
-		root["key"] = obj.getKey();
-		root["maxChannel"] = obj.getMaxChannel();
-		root["isConfigured"] = obj.getIsConfigured();
-		root["elements"] = obj.getElements();
-		root["password"] = obj.getPassword();
+		root("name", obj.getName());
+		root("ip", obj.getIp());
+		root("key", obj.getKey());
+		root("maxChannel", obj.getMaxChannel());
+		root("isConfigured", obj.getIsConfigured());
+		root("elements", obj.getElements());
+		root("password", obj.getPassword());
 
 		JsonObject& links = root.createNestedObject("_links");
 
@@ -33,19 +33,19 @@ public:
         return buffer;
 	}
 
-	Master* fromJson(String json) {
+	Master fromJson(String json) {
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.parseObject(json);
 
-        Master* result = new Master();
+        Master result = Master();
 
-        (*result).setName(root("name"));
-        (*result).setIp(root("ip"));
-        (*result).setKey(root("key"));
-        (*result).setMaxChannel(root("maxChannel"));
-        (*result).setIsConfigured(root("isConfigured"));
-        (*result).setElements(root("elements"));
-        (*result).setPassword(root("password"));
+        result.setName(root("name"));
+        result.setIp(root("ip"));
+        result.setKey(root("key"));
+        result.setMaxChannel(root("maxChannel"));
+        result.setIsConfigured(root("isConfigured"));
+        result.setElements(root("elements"));
+        result.setPassword(root("password"));
 
         return result;
 	}

@@ -13,8 +13,8 @@ public:
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
 
-		root["name"] = obj.getName();
-		root["members"] = obj.getMembers();
+		root("name", obj.getName());
+		root("members", obj.getMembers());
 
 		JsonObject& links = root.createNestedObject("_links");
 
@@ -28,14 +28,14 @@ public:
         return buffer;
 	}
 
-	Group* fromJson(String json) {
+	Group fromJson(String json) {
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.parseObject(json);
 
-        Group* result = new Group();
+        Group result = Group();
 
-        (*result).setName(root("name"));
-        (*result).setMembers(root("members"));
+        result.setName(root("name"));
+        result.setMembers(root("members"));
 
         return result;
 	}

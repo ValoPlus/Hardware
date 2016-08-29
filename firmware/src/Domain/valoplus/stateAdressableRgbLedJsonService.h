@@ -13,8 +13,8 @@ public:
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.createObject();
 
-		root["active"] = obj.getActive();
-		root["brightness"] = obj.getBrightness();
+		root("active", obj.getActive());
+		root("brightness", obj.getBrightness());
 
 		JsonObject& links = root.createNestedObject("_links");
 
@@ -28,14 +28,14 @@ public:
         return buffer;
 	}
 
-	StateAdressableRgbLed* fromJson(String json) {
+	StateAdressableRgbLed fromJson(String json) {
 		StaticJsonBuffer<200> jsonBuffer;
         JsonObject& root = jsonBuffer.parseObject(json);
 
-        StateAdressableRgbLed* result = new StateAdressableRgbLed();
+        StateAdressableRgbLed result = StateAdressableRgbLed();
 
-        (*result).setActive(root("active"));
-        (*result).setBrightness(root("brightness"));
+        result.setActive(root("active"));
+        result.setBrightness(root("brightness"));
 
         return result;
 	}
