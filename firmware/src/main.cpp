@@ -6,7 +6,8 @@
 #include "OTA/OTAManager.h"
 #include "ESP8266mDNS.h"
 #include "RestHttpServer/RestHttpServer.h"
-#include "Domain/valoplus/device.h"
+#include "domain/valoplus/device.h"
+#include "domain/valoplus/master.h"
 
 //WebServer webServer;
 OTAManager otaManager;
@@ -15,7 +16,7 @@ RestHttpServer restHttpServer(80);
 void bootstrap(){
 
 
-    Device d = Device();
+    Device d = Master();
 
 
     Serial.println("Bootstraping device");
