@@ -4,22 +4,23 @@
 #include <FS.h>
 #include <internal/gdbstub.h>
 #include "OTA/OTAManager.h"
-#include "WebServer/WebServer.h"
-#include "Domain/Settings/Wlan/JsonWlanSettingsInput.h"
-#include "Domain/Settings/Wlan/WlanSettings.h"
-#include "Domain/Settings/JsonSettingsInput.h"
-#include "Domain/Settings/Settings.h"
-#include "RestHttpServer.h"
-
+#include "ESP8266mDNS.h"
+#include "RestHttpServer/RestHttpServer.h"
+#include "domain/valoplus/device.h"
+#include "domain/valoplus/master.h"
 
 //WebServer webServer;
 OTAManager otaManager;
 
 RestHttpServer restHttpServer(80);
-
 void bootstrap(){
 
+
+    Device d = Master();
+
+
     Serial.println("Bootstraping device");
+
     String channelJsonPath = "/channel.json";
 
     if(SPIFFS.exists(channelJsonPath)){
@@ -69,6 +70,7 @@ void setup() {
         Serial.println("Trying to read settings.json");
 
         String wifiPath = "/wlan.json";
+
         File f = SPIFFS.open(wifiPath, "r");
         Serial.println("opend");
 
@@ -77,26 +79,29 @@ void setup() {
         f.close();
         Serial.println("closed");
 
+
         if (settingsJson.length() > 5) {
-            JsonWlanSettingsInput settingsInput = JsonWlanSettingsInput(settingsJson);
-            WlanSettings wifiConfig = WlanSettings(settingsInput);
+            //JsonWlanSettingsInput settingsInput = JsonWlanSettingsInput(settingsJson);
+            //WlanSettings wifiConfig = WlanSettings(settingsInput);
 
 
             Serial.println("starting wlan");
             WiFi.mode(WIFI_STA);
 
-            WiFi.begin(wifiConfig.getSSID().c_str(), wifiConfig.getPassword().c_str());
+            //WiFi.begin(wifiConfig.getSSID().c_str(), wifiConfig.getPassword().c_str());
 
 
             while(WiFi.waitForConnectResult() != WL_CONNECTED) {
                 Serial.println("Connection Failed! Starting AP...");
                 //startAP();
             }
+
         }
         else
         {
             startAP();
         }
+
     }
     else{
         bootstrap();
