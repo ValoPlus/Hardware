@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include <domain/valoplus/group.h>
+#include <domain/valoplus/Group.h>
 
 class GroupJsonService {
 private:
@@ -19,9 +19,9 @@ public:
 		JsonObject& links = root.createNestedObject("_links");
 
 		JsonObject& self1 = links.createNestedObject("self");
-		self1.set("href", "/groups/" + obj.getId());
+		self1.set("href", "/groups/" + obj.getTableRow());
 		JsonObject& self2 = links.createNestedObject("group");
-		self2.set("href", "/groups/" + obj.getId());
+		self2.set("href", "/groups/" + obj.getTableRow());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));

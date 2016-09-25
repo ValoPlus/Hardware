@@ -1,12 +1,12 @@
 #ifndef TEST_MASTER_H
 #define TEST_MASTER_H
 
-#include <domain/valoplus/channelElement.h>
 #include <string>
-#include <domain/valoplus/device.h>
+#include <domain/valoplus/Device.h>
 #include <vector>
+#include <domain/valoplus/ChannelElement.h>
 
-class Master : Device {
+class Master : public Device {
 	private:
 		std::string name;
 		std::string ip;

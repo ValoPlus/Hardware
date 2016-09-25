@@ -1,11 +1,11 @@
 #ifndef TEST_GROUP_H
 #define TEST_GROUP_H
 
+#include <domain/valoplus/ControllableElement.h>
 #include <string>
-#include <domain/valoplus/controllableElement.h>
 #include <vector>
 
-class Group : ControllableElement {
+class Group : public ControllableElement {
 	private:
 		std::string name;
 		std::vector<ControllableElement> members;

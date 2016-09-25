@@ -1,10 +1,10 @@
 #ifndef TEST_RGBLED_H
 #define TEST_RGBLED_H
 
-#include <domain/valoplus/channelElement.h>
 #include <string>
+#include <domain/valoplus/ChannelElement.h>
 
-class RgbLed : ChannelElement {
+class RgbLed : public ChannelElement {
 	private:
 		std::string name;
 		int channelIdRed;

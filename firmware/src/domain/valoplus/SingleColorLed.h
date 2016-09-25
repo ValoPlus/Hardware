@@ -1,10 +1,10 @@
 #ifndef TEST_SINGLECOLORLED_H
 #define TEST_SINGLECOLORLED_H
 
-#include <domain/valoplus/channelElement.h>
 #include <string>
+#include <domain/valoplus/ChannelElement.h>
 
-class SingleColorLed : ChannelElement {
+class SingleColorLed : public ChannelElement {
 	private:
 		std::string name;
 		int channelId;

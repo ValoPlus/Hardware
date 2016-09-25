@@ -1,12 +1,12 @@
 #ifndef TEST_DEVICE_H
 #define TEST_DEVICE_H
 
-#include <domain/valoplus/channelElement.h>
+#include <domain/valoplus/ControllableElement.h>
 #include <string>
-#include <domain/valoplus/controllableElement.h>
 #include <vector>
+#include <domain/valoplus/ChannelElement.h>
 
-class Device : ControllableElement {
+class Device : public ControllableElement {
 	private:
 		
 	public:

@@ -1,9 +1,9 @@
 #ifndef TEST_STATEADRESSABLERGBLED_H
 #define TEST_STATEADRESSABLERGBLED_H
 
-#include <domain/valoplus/state.h>
+#include <domain/valoplus/State.h>
 
-class StateAdressableRgbLed : State {
+class StateAdressableRgbLed : public State {
 	private:
 		bool active;
 		int brightness;

@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include <domain/valoplus/stateAdressableRgbLed.h>
+#include <domain/valoplus/StateAdressableRgbLed.h>
 
 class StateAdressableRgbLedJsonService {
 private:
@@ -19,9 +19,9 @@ public:
 		JsonObject& links = root.createNestedObject("_links");
 
 		JsonObject& self1 = links.createNestedObject("self");
-		self1.set("href", "/stateAdressableRgbLeds/" + obj.getId());
+		self1.set("href", "/stateAdressableRgbLeds/" + obj.getTableRow());
 		JsonObject& self2 = links.createNestedObject("stateAdressableRgbLed");
-		self2.set("href", "/stateAdressableRgbLeds/" + obj.getId());
+		self2.set("href", "/stateAdressableRgbLeds/" + obj.getTableRow());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));

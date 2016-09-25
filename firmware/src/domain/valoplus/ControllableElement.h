@@ -1,9 +1,10 @@
 #ifndef TEST_CONTROLLABLEELEMENT_H
 #define TEST_CONTROLLABLEELEMENT_H
 
+#include <domain/core/PersistentElement.h>
 #include <string>
 
-class ControllableElement  {
+class ControllableElement : public PersistentElement {
 	private:
 		
 	public:

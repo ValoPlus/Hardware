@@ -1,8 +1,9 @@
 #ifndef TEST_STATE_H
 #define TEST_STATE_H
 
+#include <domain/core/PersistentElement.h>
 
-class State  {
+class State : public PersistentElement {
 	private:
 		
 	public:

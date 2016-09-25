@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include <domain/valoplus/rgbLed.h>
+#include <domain/valoplus/RgbLed.h>
 
 class RgbLedJsonService {
 private:
@@ -21,9 +21,9 @@ public:
 		JsonObject& links = root.createNestedObject("_links");
 
 		JsonObject& self1 = links.createNestedObject("self");
-		self1.set("href", "/rgbLeds/" + obj.getId());
+		self1.set("href", "/rgbLeds/" + obj.getTableRow());
 		JsonObject& self2 = links.createNestedObject("rgbLed");
-		self2.set("href", "/rgbLeds/" + obj.getId());
+		self2.set("href", "/rgbLeds/" + obj.getTableRow());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));

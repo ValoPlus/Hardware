@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include <domain/valoplus/singleColorLed.h>
+#include <domain/valoplus/SingleColorLed.h>
 
 class SingleColorLedJsonService {
 private:
@@ -19,9 +19,9 @@ public:
 		JsonObject& links = root.createNestedObject("_links");
 
 		JsonObject& self1 = links.createNestedObject("self");
-		self1.set("href", "/singleColorLeds/" + obj.getId());
+		self1.set("href", "/singleColorLeds/" + obj.getTableRow());
 		JsonObject& self2 = links.createNestedObject("singleColorLed");
-		self2.set("href", "/singleColorLeds/" + obj.getId());
+		self2.set("href", "/singleColorLeds/" + obj.getTableRow());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));

@@ -1,9 +1,9 @@
 #ifndef TEST_CHANNELELEMENT_H
 #define TEST_CHANNELELEMENT_H
 
-#include <domain/valoplus/controllableElement.h>
+#include <domain/valoplus/ControllableElement.h>
 
-class ChannelElement : ControllableElement {
+class ChannelElement : public ControllableElement {
 	private:
 		
 	public:

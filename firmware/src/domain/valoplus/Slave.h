@@ -1,12 +1,12 @@
 #ifndef TEST_SLAVE_H
 #define TEST_SLAVE_H
 
-#include <domain/valoplus/channelElement.h>
 #include <string>
-#include <domain/valoplus/device.h>
+#include <domain/valoplus/Device.h>
 #include <vector>
+#include <domain/valoplus/ChannelElement.h>
 
-class Slave : Device {
+class Slave : public Device {
 	private:
 		std::string name;
 		std::string ip;

@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include <domain/valoplus/slave.h>
+#include <domain/valoplus/Slave.h>
 
 class SlaveJsonService {
 private:
@@ -23,9 +23,9 @@ public:
 		JsonObject& links = root.createNestedObject("_links");
 
 		JsonObject& self1 = links.createNestedObject("self");
-		self1.set("href", "/slaves/" + obj.getId());
+		self1.set("href", "/slaves/" + obj.getTableRow());
 		JsonObject& self2 = links.createNestedObject("slave");
-		self2.set("href", "/slaves/" + obj.getId());
+		self2.set("href", "/slaves/" + obj.getTableRow());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));

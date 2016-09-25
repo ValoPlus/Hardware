@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include <domain/valoplus/master.h>
+#include <domain/valoplus/Master.h>
 
 class MasterJsonService {
 private:
@@ -24,9 +24,9 @@ public:
 		JsonObject& links = root.createNestedObject("_links");
 
 		JsonObject& self1 = links.createNestedObject("self");
-		self1.set("href", "/masters/" + obj.getId());
+		self1.set("href", "/masters/" + obj.getTableRow());
 		JsonObject& self2 = links.createNestedObject("master");
-		self2.set("href", "/masters/" + obj.getId());
+		self2.set("href", "/masters/" + obj.getTableRow());
 
         char buffer[root.measureLength()];
         root.printTo(buffer, sizeof(buffer));

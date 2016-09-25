@@ -1,11 +1,11 @@
 #ifndef TEST_ADRESSABLERGBLED_H
 #define TEST_ADRESSABLERGBLED_H
 
-#include <domain/valoplus/channelElement.h>
+#include <domain/valoplus/StateAdressableRgbLed.h>
 #include <string>
-#include <domain/valoplus/stateAdressableRgbLed.h>
+#include <domain/valoplus/ChannelElement.h>
 
-class AdressableRgbLed : ChannelElement {
+class AdressableRgbLed : public ChannelElement {
 	private:
 		std::string name;
 		StateAdressableRgbLed stateAdressableRgbLed;
